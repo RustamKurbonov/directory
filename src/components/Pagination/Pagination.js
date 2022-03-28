@@ -1,26 +1,25 @@
-import React from 'react'
+import React from "react";
 
-const Pagination = props => {
+export const Pagination = ({ total, count, paginationFunction }) => {
+  const numder = [];
 
-    const numder = []
+  for (let i = 1; i <= Math.ceil(total / count); i++) {
+    numder.push(i);
+  }
 
-    for(let i = 1; i <= Math.ceil(props.total / props.count); i++){
-        numder.push(i)
-    }
-
-    return (
-        <div className='pagination'>
-            <ul className='pagination__list'>
-                {
-                    numder.map(i => (
-                        <li onClick={() => props.paginationFunction(i)} className='pagination__link' key={i}>
-                            <span>{i}</span>
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-    )
-}
-
-export default Pagination
+  return (
+    <div className="pagination">
+      <ul className="pagination__list">
+        {numder.map((i) => (
+          <li
+            onClick={() => paginationFunction(i)}
+            className="pagination__link"
+            key={i}
+          >
+            <span>{i}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};

@@ -1,62 +1,58 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import siteMap from "../../siteMap/config.json";
+import text from "./assets/text.json";
+import correctData from "./assets/correctData.json";
 
-const Login = (props) => {
-  const [opacity, setOpacity] = useState(0);
+export const Login = () => {
+  const [errorVisibility, setErrorVisibility] = useState(false);
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-
-  const submit = (data) => {
-    if (props.dataLogin === data.login && props.dataPass === data.pass) {
-      localStorage.setItem("login", data.login);
-      localStorage.setItem("pass", data.pass);
-      reset();
-      window.location.href = "/dictionary";
+  const handleProcessClick = (event) => {
+    event.preventDefault();
+    if (correctData.login === login && correctData.password === password) {
+      localStorage.setItem("login", login);
+      localStorage.setItem("password", password);
+      setLogin("");
+      setPassword("");
+      setErrorVisibility(false);
+      window.location.href = siteMap.dictionary.path;
     } else {
-      setOpacity(1);
+      setErrorVisibility(true);
     }
   };
 
   return (
     <div className="login">
-      <div className="login__title title">Авторизация</div>
-      <form className="login__form" onSubmit={handleSubmit(submit)}>
+      <div className="login__title title">{siteMap.login.name}</div>
+      <form className="login__form">
         <label>
-          Введите ваше имя
+          {text.labelLogin}
           <input
             type="text"
             placeholder="Имя"
-            {...register("login", { required: true })}
+            value={login}
+            onChange={(event) => setLogin(event.target.value)}
+            required
           />
-          {errors.login ? <div className="login__error">Введите имя</div> : ""}
         </label>
         <label>
-          Введите ваш пароль
+          {text.labelPassword}
           <input
             type="password"
             placeholder="Пароль"
-            {...register("pass", { required: true })}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
           />
-          {errors.pass ? (
-            <div className="login__error">Введите пароль</div>
-          ) : (
-            ""
-          )}
         </label>
         <label>
-          <input type="submit" placeholder="Пароль" value="Отправить" />
+          <input type="submit" value="Отправить" onClick={handleProcessClick} />
         </label>
       </form>
-      <div style={{ opacity: opacity }} className="login__error">
-        Логин или пароль неверный
-      </div>
+      {errorVisibility && (
+        <div className="login__error">{text.errorMessage}</div>
+      )}
     </div>
   );
 };
-
-export default Login;

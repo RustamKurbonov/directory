@@ -1,56 +1,54 @@
 import React, { useState, useEffect } from "react";
-import Post from "../Post/Post";
-import Pagination from "../Pagination/Pagination";
-import InputFilter from "../InputFilter/InputFilter";
+import { InputFilter, Post, Pagination } from "../index";
+import siteMap from "../../siteMap/config.json";
 import * as axios from "axios";
 
-const Dictionary = () => {
+export const Dictionary = () => {
   const [posts, setPosts] = useState([]);
   const [inputValue, setInputValue] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [count] = useState(4);
 
-  useEffect(() => {
-    const getPosts = async () => {
-      const res = await axios.get(
-        "https://my-json-server.typicode.com/RustamKurbonov/jstest/db"
-      );
-      setPosts(res.data.posts);
-    };
-    getPosts();
-  }, []);
-
-  const filterPage = posts.filter((item) => {
-    return item.title.toLowerCase().includes(inputValue);
-  });
+  const filterPage = posts.filter((item) =>
+    item.title.toLowerCase().includes(inputValue)
+  );
 
   const lastIndex = currentPage * count;
   const firstIndex = lastIndex - count;
   const currentPosts = filterPage.slice(firstIndex, lastIndex);
 
-  const paginationFunction = (number) => {
-    return setCurrentPage(number);
-  };
+  useEffect(() => {
+    if (localStorage.length === 0) {
+      window.location.href = siteMap.login.path;
+    }
+
+    const handlePostsGet = async () => {
+      const res = await axios.get(
+        "https://my-json-server.typicode.com/RustamKurbonov/jstest/db"
+      );
+      setPosts(res.data.posts);
+    };
+    handlePostsGet();
+  }, []);
+
+  const paginationFunction = (number) => setCurrentPage(number);
 
   return (
     <div className="post-container">
       <div className="post">
-        <div className="post__title-main title">Справочники</div>
+        <div className="post__title-main title">{siteMap.dictionary.name}</div>
         <InputFilter
-          onChengeInput={(e) => setInputValue(e.target.value.toLowerCase())}
+          onInputChenge={(e) => setInputValue(e.target.value.toLowerCase())}
         />
         {currentPosts.map((post, index) => (
-          <p>tret</p>
-          //  <Post key={index} title={post.title} text={post.description} />
+          <Post key={index} title={post.title} text={post.description} />
         ))}
       </div>
-      {/* <Pagination
+      <Pagination
         count={count}
         total={filterPage.length}
         paginationFunction={paginationFunction}
-      /> */}
+      />
     </div>
   );
 };
-
-export default Dictionary;

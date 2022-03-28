@@ -1,0 +1,18 @@
+{
+  "mainPage": {
+    "path": "/",
+    "name": "Главная страница"
+  },
+  "login": {
+    "path": "/login",
+    "name": "Авторизация"
+  },
+  "dictionary": {
+    "path": "/dictionary",
+    "name": "Справочники"
+  },
+  "about": {
+    "path": "/about",
+    "name": "Описание"
+  }
+}

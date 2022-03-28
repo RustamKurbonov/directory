@@ -1,16 +1,14 @@
 import React from "react";
-//import Style from './Music.module.css'
+import text from "./assets/text.json";
+import siteMap from "../../siteMap/config.json";
+import iamge from "../../image/main.png";
 
-const Main = (props) => {
-  return (
-    <div className="main">
-      <div className="main__title title">Главная страница</div>
-      <div className="main__img">
-        <img alt="test" src={props.img} />
-      </div>
-      <div className="main__body">{props.data}</div>
+export const Main = () => (
+  <div className="main">
+    <div className="main__title title">{siteMap.mainPage.name}</div>
+    <div className="main__img">
+      <img alt="Main page" src={iamge} />
     </div>
-  );
-};
-
-export default Main;
+    <div className="main__body">{text.textBody}</div>
+  </div>
+);
