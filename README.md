@@ -1,3 +1,5 @@
+```A simple application with the output of directories. You must be logged in to view directories. Password: 12345 login: Admin. ```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
