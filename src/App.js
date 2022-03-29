@@ -1,8 +1,10 @@
 import React from "react";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
-import { Header, Main, About, Login, Dictionary } from "./components";
+import { BrowserRouter, Route } from "react-router-dom";
+import { Header } from "./components";
+import { Main, About, Login, Dictionary } from "./pages";
 import siteMap from "./siteMap/config.json";
 import "./App.css";
+import "antd/dist/antd.css";
 
 const App = () => (
   <BrowserRouter>

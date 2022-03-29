@@ -193,6 +193,13 @@ h6 {
   transition: 0.3s;
 }
 
+.post__load {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .post__text {
   margin: 10px 0px;
   font-size: 15px;
